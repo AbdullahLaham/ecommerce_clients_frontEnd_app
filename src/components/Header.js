@@ -30,7 +30,7 @@ const Header = () => {
   const [selected, setSelected] = useState(1);
   const [showMenu, setShowMenu] = useState(false);
    return (
-    <div className='flex  fixed min-w-[100%] justify-between items-center bg-opacity-80 bg-gray-200 text-gray-500 p-[1.7rem] z-10'>
+    <div className=' hidden lg:flex fixed min-w-[100%] justify-between items-center bg-opacity-80 bg-gray-200 text-gray-500 p-[1.7rem] z-10'>
       <select className='bg-gray-200 border-none outline-none '>
         <option value='English'>English</option>
       </select>
@@ -39,15 +39,13 @@ const Header = () => {
         {headerItems.map((item, i) => {
           if (item?.image) {
             return <Link to='/'><img src={logo} className='cursor-pointer' /></Link>
-          } else {
-            return <Link to={`/products/${item.name}`}><p onClick={() => setSelected(i+1)} className={selected == i+1 ? 'text-red-500 cursor-pointer' : 'cursor-pointer'}>{item.name}</p></Link>
+          } else { 
+            return <Link to={item?.name == 'Home' ? '/' : `/products/${item.name}`}><p onClick={() => setSelected(i)} className={selected == i ? 'text-red-500 cursor-pointer' : 'cursor-pointer'}>{item.name}</p></Link>
           }
         })}
       </div>
       <div className='text-[#000] flex justify-between items-center w-[6.5rem] cursor-pointer'>
-        <Link to='/wishlist'>
           <div><FcLike className='text-[#fff] ' /></div>
-        </Link>
         <div>
           <div onClick={() => setShowMenu(!showMenu)}><AiOutlineUser className='cursor-pointer' /></div>
           {showMenu && <Menu />}

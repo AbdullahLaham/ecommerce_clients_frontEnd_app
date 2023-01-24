@@ -7,6 +7,8 @@ import MainPage from './containers/MainPage';
 import ProfilePage from './containers/ProfilePage';
 import Products from './containers/Products';
 import CartPage from './containers/CartPage';
+import ProductDetails from './containers/ProductDetails';
+import PaymentPage from './containers/PaymentPage';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/products/:category' element={<Products />} />
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/payment' element={<PaymentPage />} />
+          <Route path='/product/:id' element={<ProductDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

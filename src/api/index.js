@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: 'http://localhost:5000/' });
+const API = axios.create({ baseURL: 'https://ecommerce-frontend-dashboard.vercel.app/' });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('token')) {
@@ -28,6 +28,10 @@ export const getCategories = async () => {
     return res;
 }
 export const getProductsByCategories = async (category) => {
-    const res = await API.get('/general/getCategoryProducts', {category});
+    const res = await API.get(`/general/getCategoryProducts/${category}`);
+    return res;
+}
+export const fetchProductDetails = async (id) => {
+    const res = await API.get(`/general/fetchProductDetails/${id}`);
     return res;
 }

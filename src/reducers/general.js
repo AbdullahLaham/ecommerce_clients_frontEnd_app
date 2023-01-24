@@ -1,24 +1,42 @@
-import {  ADD_TO_CART, DELETE_FROM_CART, UPDATE_CART_ITEM, TRANSACTION, ALL_PRODUCTS } from "../constants";
-const reducer = (state={ 
-        cart: JSON.parse(localStorage.getItem('cart')),
+import {  ADD_TO_CART, DELETE_FROM_CART, UPDATE_CART_ITEM, TRANSACTION, ALL_PRODUCTS, CATEGORY_PRODUCTS, CURRENT_PRODUCT } from "../constants";
+const reducer = (state = { 
+        cart: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [],
         transaction: null,
-        products: JSON.parse(localStorage.getItem('products'))},
-        action
+        products: JSON.parse(localStorage.getItem('products')),
+        categories: ['clothing', 'accessories', 'misc', 'shoes'],
+        categoryProducts: null,
+        product: {},
+    },
+    action
     ) => {
     switch(action.type) {
         case  ADD_TO_CART: {
             let item = action.payload;
-            return {...state, cart: [...state?.cart, item]}
+            const index = state?.cart.findIndex((cartItem) => cartItem?._id == item?._id);
+            console.log(index);
+            let newCart;
+            if (index >= 0) {
+                const myCart = state?.cart;
+                const itemm = myCart[index];
+                let newCartItem = {...(state?.cart[index]), qty: (itemm?.qty) + 1 }
+                newCart = state?.cart.map((product) => product?._id == item?._id ? newCartItem : product);
+            } else {
+                newCart = [...state?.cart, {...item, qty: 1}];
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(newCart))
+            return {...state, cart: newCart}
         }
         case DELETE_FROM_CART: {
             let item = action.payload;
-            const newCart = state.cart.map((prod) => prod.name == item.name ? item : prod);
+            const newCart = state.cart.filter((prod) => prod?._id !== item?._id);
             localStorage.setItem('cart', JSON.stringify(newCart));
-            return {...state, authData: null}
+            return {...state, cart: newCart}
         }
         case UPDATE_CART_ITEM: {
             let item = action.payload;
-            const newCart = state.cart.map((prod) => prod.name == item.name ? item : prod);
+            const newCart = state.cart.map((prod) => prod._id == item._id ?  item : prod              
+            );
             localStorage.setItem('cart', JSON.stringify(newCart));
             return {...state, cart: newCart}
         }
@@ -29,6 +47,12 @@ const reducer = (state={
         case ALL_PRODUCTS: {
             localStorage.setItem('products', JSON.stringify(action?.payload));
             return {...state, products: action?.payload};
+        }
+        case CATEGORY_PRODUCTS: {
+            return {...state, categoryProducts: action?.payload}
+        }
+        case CURRENT_PRODUCT: {
+            return {...state, product: action.payload}
         }
         default: {
             return state;

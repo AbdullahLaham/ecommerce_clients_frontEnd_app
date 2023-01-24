@@ -38,8 +38,9 @@ const MainPage = () => {
   return (
     <div className=''>
       <Header />  
-      <div className=' w-[100%] block h-[100vh] bg-gray-800 bg-no-repeat bg-cover relative z-0'>
+      <div className=' w-[100%] block h-[100vh] bg-gray-800 bg-no-repeat bg-cover relative z-0 main-page'>
           <div className='w-[100%] flex ' >
+            <img src={mainImage} className='w-[100%] h-[100%] absolute top-0 left-0 right-0 bottom-0 -z-[1]' />
             <div className='w-[100%] flex-col mt-[15rem] flex items-start text-white ml-[7rem] '>
               <h2 className='text-5xl mb-[.9rem]'>PLAYSTATION 5</h2>
               <p className='mt-[1rem] '> ligtning-fast download-speed with super fast ssd storage</p>
@@ -47,7 +48,6 @@ const MainPage = () => {
               '><p className='font-bold'>Start Shopping</p> <span className='flex -ml-[.4rem] text-[#000] '><MdKeyboardArrowRight className='text-[1.5rem] ml-[10px] '/><MdKeyboardArrowRight className='text-[1.5rem] -ml-[1.2rem] '/><MdKeyboardArrowRight className='text-[1.5rem] -ml-[1.2rem]'/></span></button>
             </div>
             <div>
-                <img className='w-[100%] h-[100%] bottom-0 top-0 right4 left-0 absolute z-[-1]' src={mainImage} />
             </div>
           </div>
           <div className='w-[2rem] h-[2rem] rounded-full flex items-center justify-center bg-white absolute bottom-6 left-[50%] cursor-pointer'>
